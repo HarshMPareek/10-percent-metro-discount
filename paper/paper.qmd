@@ -57,7 +57,7 @@ Understanding these pricing dynamics is crucial for students managing tight budg
 We aim to estimate whether Metro's 10% student discount actually results in lower grocery expenses for students compared to other nearby supermarkets that may offer lower base prices but no direct student discounts. Specifically, we investigate how Metro's discounted prices compare to those of No Frills, Loblaws, Galleria, and T&T Supermarket across various product categories commonly purchased by students.
 
 
-The remainder of this paper is structured as follows. In Section @sec-data, we describe the data collection and cleaning process. Section @sec-model details the statistical model and its results. Section @sec-discussion) discusses the implications of our findings. Finally there is also an apendix attached.
+The remainder of this paper is structured as follows. In Section @sec-data, we describe the data collection and cleaning process. Section @sec-model details the statistical model and its results. Section @sec-discussion discusses the implications of our findings. Finally there is also an apendix attached.
 
 
 # Data {#sec-data}
@@ -318,7 +318,7 @@ These priors are broad enough to not impose strong constraints on the parameter 
 
 # Results {#sec-result}
 
-Our analysis results are summarized in [Table @tbl-modelresults)]. The Bayesian linear regression model indicates significant differences in product prices across different supermarket vendors and product categories.
+Our analysis results are summarized in  @tbl-modelresults. The Bayesian linear regression model indicates significant differences in product prices across different supermarket vendors and product categories.
 
 ## Model Summary
 **Table 1: @tbl-model-results : Bayesian Linear Regression Model Estimates**
@@ -435,7 +435,7 @@ ggplot(coef_summary, aes(x = estimate, y = reorder(term, estimate), color = type
 Model diagnostics, including convergence checks and posterior predictive checks, are presented in Appendix A. The trace plots and Rhat values indicate good convergence of the Markov Chain Monte Carlo (MCMC) sampling, with all Rhat values below 1.05. Posterior predictive checks demonstrate that the model adequately fits the data, capturing the distribution of product prices across vendors and categories.
 
 
-# Discussion
+# Discussion {#sec-discussion}
 
 In this study, I examined whether Metro's 10% student discount offers genuine savings for University of Toronto (UofT) students compared to nearby supermarkets like No Frills, Loblaws, Galleria, and T&T Supermarket. Using Bayesian linear regression and exploratory data analysis (EDA), I compared prices across different vendors and product categories.
 
