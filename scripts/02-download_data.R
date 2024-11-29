@@ -1,6 +1,6 @@
 #### Preamble ####
 # Purpose: Load downloaded data from Jacob Filipp's groceries dataset:
-  # https://jacobfilipp.com/hammer/
+  # https://jacobfilipp.com/hammerdata/hammer-5-csv.zip in raw files and unzip
 # Author: Harsh M Pareek
 # Date: 28 November 2024
 # Contact: harsh.pareek@mail.utronto.ca
