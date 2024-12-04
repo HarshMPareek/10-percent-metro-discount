@@ -73,7 +73,7 @@ We used a dataset of grocery prices from five supermarkets near the University o
 
 The data were sourced from Project Hammer [@Filipp2024], an initiative providing a comprehensive database of historical grocery prices to enhance competition in the Canadian grocery sector. This dataset includes product-level pricing information from eight vendors, allowing detailed comparisons across retailers but we only selected five which were available near the campus.
 
-##Dataset Characteristics
+## Dataset Characteristics
 - Time Frame: February 28, 2024 to November 29, 2024.
 - Data Files:
   - Product File: Contains metadata and product details.
@@ -321,7 +321,7 @@ These priors are broad enough to not impose strong constraints on the parameter 
 Our analysis results are summarized in  @tbl-modelresults. The Bayesian linear regression model indicates significant differences in product prices across different supermarket vendors and product categories.
 
 ## Model Summary
-**Table 1: @tbl-model-results : Bayesian Linear Regression Model Estimates**
+Table 1: @tbl-modelresults : Bayesian Linear Regression Model Estimates
 
 ```{r}
 #| tbl-modelresults, echo = FALSE, message = FALSE, warning = FALSE, tbl.pos = 'H'
@@ -338,7 +338,7 @@ modelsummary(
 ```
 
 ## Interpretation of Model Estimates
-The intercept (\(\alpha = 7.4\)) represents the baseline price for products in the reference category (**Staples**) at the reference vendor (**Metro**). Coefficients for each vendor indicate the average price difference compared to **Metro**, while coefficients for each category reflect the average price difference compared to **Staples**.
+The intercept \( \alpha = 7.4\) represents the baseline price for products in the reference category (**Staples**) at the reference vendor (**Metro**). Coefficients for each vendor indicate the average price difference compared to **Metro**, while coefficients for each category reflect the average price difference compared to **Staples**.
 
 ### Vendor Effects
 
@@ -505,6 +505,10 @@ The data was gathered through web scraping of online platforms, focusing on "in-
 ### Sampling Methodology
 We employed a convenience sampling approach, collecting data based on product availability on vendor websites at the time of scraping. While this method facilitated efficient data acquisition, it introduces potential biases that may affect the validity and generalizability of our findings.
 
+### R packages used for analysis
+
+In this study, various R packages were used for data processing, visualization, analysis, and reporting. The @thereferencecanbewhatever, including @dplyr, @readr, and @stringr, was used for data cleaning and manipulation. Visualizations were created using @ggplot2 and improved with @patchwork and @cowplot, with color scales from @viridis. Statistical modeling was done with @citeRstanarm, diagnostic plots with @bayesplot, and summaries with @broom and @modelsummary. File paths were managed using @here, and Parquet files were handled with @arrow. Reporting used @knitr and @kableExtra. Code quality was maintained using @testthat, @lintr, and @styler.
+
 ### Potential Biases and Limitations
 
 - **Selection Bias**: Since the sample consists of products readily available or prominently displayed online, certain items may be overrepresented or underrepresented. Popular products or those heavily promoted by vendors are more likely to appear in the dataset, while niche or less-advertised items may be omitted [@Thompson2012].
@@ -616,10 +620,11 @@ ggplot(grocery_data, aes(x = current_price)) +
 
 ```{r fig-price-distribution-category, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Price Distribution by Vendor and Category", fig.pos="H"}
 # Plot price distribution by vendor and category
-ggplot(grocery_data, aes(x = vendor, y = current_price, fill = vendor)) +
+ggplot(grocery_data, aes(x = vendor, y = current_price, fill = vendor, color = vendor)) +
   geom_boxplot(outlier.shape = NA, alpha = 0.7, width = 0.6) +
-  geom_jitter(width = 0.2, alpha = 0.3, size = 0.5, color = "black") +
+  geom_jitter(width = 0.2, alpha = 0.6, size = 0.7) + # Adjusted alpha and size for visibility
   scale_fill_brewer(palette = "Set2") +
+  scale_color_brewer(palette = "Dark2") + # Add a distinct palette for points
   labs(
     title = "Price Distribution by Vendor and Category",
     x = "Vendor",
