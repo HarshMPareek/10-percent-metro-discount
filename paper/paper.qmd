@@ -51,13 +51,13 @@ Grocery expenses are a significant concern for university students, especially i
 
 Our analysis involves collecting and cleaning price data from these five supermarkets, categorizing products into staples, proteins, dairy, vegetables, fruits, snacks, condiments, spices, frozen essentials, and baking basics. We performed exploratory data analysis and fitted a linear regression model to assess the effect of vendor and product category on current prices. The results indicate that while Metro's student discount reduces prices, competitors like No Frills often have lower base prices that result in overall lower costs for students. In some categories, Metro becomes competitive when the discount is applied, but in others, students may achieve greater savings elsewhere.
 
-Understanding these pricing dynamics is crucial for students managing tight budgets. By clarifying whether Metro's student discount translates into real savings, we provide valuable insights that can help students make informed decisions about where to shop for groceries, ultimately impacting their financial well-being during their studies.
+Understanding these pricing dynamics is important for students managing tight budgets. By clarifying whether Metro's student discount translates into real savings, we provide important information that can help students make informed decisions about where to shop for groceries, ultimately impacting their financial well-being during their studies.
 
 ## Estimand
 We aim to estimate whether Metro's 10% student discount actually results in lower grocery expenses for students compared to other nearby supermarkets that may offer lower base prices but no direct student discounts. Specifically, we investigate how Metro's discounted prices compare to those of No Frills, Loblaws, Galleria, and T&T Supermarket across various product categories commonly purchased by students.
 
 
-The remainder of this paper is structured as follows. In Section @sec-data, we describe the data collection and cleaning process. Section @sec-model details the statistical model and its results. Section @sec-discussion discusses the implications of our findings. Finally there is also an apendix attached.
+The remainder of this paper is structured as follows. In Section @sec-data, we describe the data collection and cleaning process. Section @sec-model details the statistical model and its results. Section @sec-discussion discusses the implications of our findings. Finally there is also an appendix section @sec-appendix attached.
 
 
 # Data {#sec-data}
@@ -71,7 +71,7 @@ We used a dataset of grocery prices from five supermarkets near the University o
 - Galleria
 - T&T Supermarket
 
-The data were sourced from Project Hammer [@Filipp2024], an initiative providing a comprehensive database of historical grocery prices to enhance competition in the Canadian grocery sector. This dataset includes product-level pricing information from eight vendors, allowing detailed comparisons across retailers but we only selected five which were available near the campus.
+The data were sourced from Project Hammer [@Filipp2024], an initiative providing an extensive database of historical grocery prices to enhance competition in the Canadian grocery sector. This dataset includes product-level pricing information from eight vendors, allowing detailed comparisons across retailers but we only selected five which were available near the campus.
 
 ## Dataset Characteristics
 - Time Frame: February 28, 2024 to November 29, 2024.
@@ -292,7 +292,9 @@ Where:
 
 ## Model Justification
 
-A Bayesian linear regression was selected for its ability to incorporate prior information and provide a probabilistic interpretation of the model parameters [@citeRstanarm]. This approach is suitable for continuous outcome variables like product prices and allows for a comprehensive assessment of uncertainty in the estimates.
+A Bayesian linear regression model was chosen for its ability to incorporate prior information and provide a probabilistic interpretation of parameter estimates [@citeRstanarm]. This approach is particularly suitable for continuous outcome variables like product prices, enabling direct estimation of how average prices differ across vendors and categories. By including both vendor and category as predictors, we can isolate the relative impact of these factors on price, even if they do not account for the majority of price variability.
+
+Importantly, the primary aim of this model is not to achieve high explanatory power (e.g., a large R-squared) or to predict prices perfectly. Instead, we focus on quantifying whether, on average, certain vendors and categories are more or less expensive compared to a reference group. Under this objective, a lower R-squared is not problematic, as it reflects the fact that vendors and categories alone do not capture all the complexity driving price differences. The model’s strengths lie in its capacity to provide credible intervals around vendor and category effects, allowing us to draw meaningful conclusions about comparative pricing without requiring the model to explain all sources of variation.
 
 Including both vendor and category as predictors enables us to isolate the impact of the supermarket on pricing while accounting for variations across different product types. This aligns with the study's objective to determine whether Metro's 10% student discount effectively reduces grocery costs for students.
 
@@ -429,7 +431,7 @@ ggplot(coef_summary, aes(x = estimate, y = reorder(term, estimate), color = type
     x = "Estimate (CAD)"
   )
 ```
-@fig-coef-estimates illustrates the 90% credibility intervals for each coefficient. Credibility intervals for No Frills, Galleria, Loblaws, and T&T Supermarket do not overlap with zero, indicating that their effects on product prices are statistically significant. Similarly, several product categories, including protein, staple, condoinment, sipice, and vegetable have credibility intervals that do not overlap with zero, confirming significant differences from the reference category (Staples).
+@fig-coef-estimates illustrates the 90% credibility intervals for each coefficient. Credibility intervals for No Frills, Galleria, Loblaws, and T&T Supermarket do not overlap with zero, indicating that their effects on product prices are statistically significant. Similarly, several product categories, including protein, staple, condiment, spice, and vegetable have credibility intervals that do not overlap with zero, confirming significant differences from the reference category (Staples).
 
 ## Model Validation
 Model diagnostics, including convergence checks and posterior predictive checks, are presented in Appendix A. The trace plots and Rhat values indicate good convergence of the Markov Chain Monte Carlo (MCMC) sampling, with all Rhat values below 1.05. Posterior predictive checks demonstrate that the model adequately fits the data, capturing the distribution of product prices across vendors and categories.
@@ -451,7 +453,7 @@ While Metro's discount alone may not drastically cut expenses, the combined savi
 
 ### Reflections on Exploratory Data Analysis
 
-The EDA provided clear insights into pricing across different supermarkets. Visual tools like boxplots and heatmaps helped identify where each store is most competitive. These visualizations make it easier for students to decide where to shop based on their needs and budgets.
+The EDA provided clear insights into pricing across different supermarkets. Visual tools like boxplots and heatmaps helped identify where each store is most competitive. These visualizations make it easier for students to decide where to shop based on their needs and budgets. Presenting these findings in a clear and accessible manner ensures that the information can be understood and acted upon by the intended audience [@tellingstories].
 
 ## Limitations
 
@@ -471,9 +473,12 @@ This study focused on supermarkets near UofT. Expanding to other areas could det
 
 Not all students may be aware of or able to use Metro's discount, affecting its overall benefit.
 
+### Model Complexity
+Our model focuses on vendor and category comparisons, leaving out factors like brand, product attributes, and seasonal effects. Including these could better explain the variation in prices, but is not essential for our primary comparative goal.
+
 ## Future Research
 
-Future studies could track prices over a longer period, include a broader range of products, and explore how student awareness and behavior influence shopping choices. Additionally, comparing supermarkets in different regions would enhance the generalizability of the findings.
+Future studies could track prices over a longer period, include a broader range of products including brands, attributes and seasonal effects. This could help explore how student awareness and behavior influence shopping choices. Additionally, comparing supermarkets in different regions would enhance the generalizing these findings.
 
 ## Conclusion
 
@@ -482,7 +487,7 @@ Metro's 10% student discount provides meaningful savings in certain categories, 
 
 \newpage
 
-# Appendix
+# Appendix {#sec-appendix}
 
 ## Surveys, sampling, and observational data
 
@@ -547,7 +552,7 @@ To assess the potential impact of enhanced sampling techniques, we conducted a s
 ### Linkages to Literature
 The limitations associated with convenience sampling are well-documented in survey methodology literature. Non-probabilistic sampling methods can introduce significant biases, undermining the accuracy of statistical inferences [@Thompson2012]. Groves et al. (2009) emphasize the importance of probability-based sampling to enhance the validity of survey results, particularly in studies aiming to inform policy or market interventions [@Groves2009].
 
-In the context of observational data, drawing causal inferences is inherently challenging due to confounding factors and lack of randomization. Smith and Piette (2018) recommend robust sampling designs and analytical methods to mitigate biases, enabling more reliable conclusions from observational studies [@Smith2018].
+In the context of observational data, drawing causal inferences is inherently challenging due to confounding factors and the absence of randomization. Researchers often recommend quasi-experimental designs, matching techniques, and other rigorous analytical strategies to strengthen causal claims when working with non-randomized data. For example, Imbens and Rubin (2015) provide a framework for using potential outcomes and carefully chosen comparison groups to approximate experimental conditions, thereby improving the credibility of inferences drawn from observational studies [@ImbensRubin2015].
 
 ### Recommendations for Future Research
 To address the identified limitations and strengthen future studies, we suggest the following:
@@ -709,7 +714,7 @@ ggplot(data = data.frame(Fitted = fitted_values, Residuals = residuals), aes(x =
 
 ## Conclusion
 
-The appendix provides additional details on the data and the model used in the analysis. The MCMC diagnostics, including Rhat values and trace plots, indicate good convergence of the model parameters. The residuals vs fitted values plot does not show any obvious patterns, suggesting that the linear model is appropriate for the data.
+The appendix provides additional details on the data and the model used in the analysis. The MCMC diagnostics, including Rhat values and trace plots, indicate good convergence of the model parameters. While the model’s R-squared is relatively low—indicating that vendors and categories alone do not explain the majority of price variation—this does not impede our main objective. Our focus is on determining whether, on average, products from certain vendors and categories are more expensive or less expensive than the reference groups, and the model’s parameter estimates reliably address this question.
 
 
 \newpage
