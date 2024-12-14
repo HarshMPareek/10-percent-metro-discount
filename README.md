@@ -12,7 +12,8 @@ The repo is structured as:
 -   `data/01-raw_data` is empty folder to download https://jacobfilipp.com/hammerdata/hammer-5-csv.zip.
 -   `data/02-analysis_data` contains the cleaned dataset that was constructed.
 -   `data/03-simulation_data` contains simulations.
--   `model` contains fitted model. 
+-   `model` contains fitted model.
+-   `paper` contains final paper pdf, qmd along with references.bib.
 -   `other` contains LLM intereactions, sketches and datasheet. 
 -   `scripts` contains the R scripts used to simulate, download, test, style, analyze, make model and clean data.
 
