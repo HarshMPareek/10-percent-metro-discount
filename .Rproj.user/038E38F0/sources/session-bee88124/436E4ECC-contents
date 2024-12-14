@@ -1,0 +1,54 @@
+#### Preamble ####
+# Purpose: Fit a linear regression model to analyze the effect of vendor on current prices
+# Author: [Your Name]
+# Date: [Current Date]
+# Contact: [Your Email]
+# License: MIT
+# Pre-requisites: Run data cleaning scripts to produce cleaned_products_with_prices.parquet
+
+#### Workspace setup ####
+library(tidyverse)
+library(rstanarm)
+library(here)
+library(arrow)
+
+#### Read data ####
+final_dataset <- read_parquet(here("data/02-analysis_data/cleaned_products_with_prices.parquet"))
+
+#### Model data ####
+# Ensure 'vendor' is a factor
+final_dataset$vendor <- factor(final_dataset$vendor)
+
+final_dataset <- final_dataset %>%
+  filter(current_price > 0) %>%
+  mutate(log_price = log(current_price))
+
+price_model_vendor_log <- stan_glm(
+  log_price ~ vendor,
+  data = final_dataset,
+  family = gaussian(),
+  prior = normal(location = 0, scale = 10, autoscale = TRUE),
+  prior_intercept = normal(location = 0, scale = 10, autoscale = TRUE),
+  seed = 123
+)
+summary(price_model_vendor_log)
+bayes_R2(price_model_vendor_log)
+
+#### Save model ####
+saveRDS(
+  price_model_vendor,
+  file = "models/price_model_vendor_only_stanarm.rds"
+)
+
+#### Summarise models ####
+summary(price_model_vendor)
+
+#### Check Bayesian R-squared ####
+# Bayesian R-squared can give a sense of how much of the variation in current_price
+# is explained by the vendor-only model.
+r2_vendor <- bayes_R2(price_model_vendor)
+print(r2_vendor)
+
+#### (Optional) Compare with an LM model for a classical R-squared ####
+lm_model_vendor <- lm(current_price ~ vendor, data = final_dataset)
+summary(lm_model_vendor) # This will provide a classical R-squared
